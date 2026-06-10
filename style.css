@@ -1,1 +1,362 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E RESETS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Efeito de rolagem suave ao clicar no menu */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background-color: #f8f9fa;
+}
+
+h1, h2, h3 {
+    color: #1b4332;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Linha decorativa abaixo dos títulos das seções */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: #52b788;
+    border-radius: 2px;
+}
+
+p {
+    margin-bottom: 15px;
+    color: #4a5568;
+}
+
+/* ==========================================================================
+   2. COMPONENTES REUTILIZÁVEIS (BOTÕES, GRIDS, CONTAINER)
+   ========================================================================== */
+section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    align-items: center;
+}
+
+.btn {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #1b5e20;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   3. CABEÇALHO & MENU
+   ========================================================================== */
+header {
+    background-color: #1b4332;
+    color: #ffffff;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo strong {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #52b788;
+}
+
+nav a {
+    color: #ffffff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+nav a:hover {
+    color: #74c69d;
+}
+
+/* Linha indicadora no hover do menu */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #74c69d;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   4. BANNER PRINCIPAL (HOME)
+   ========================================================================== */
+.banner {
+    background: linear-gradient(135deg, rgba(27, 67, 50, 0.95), rgba(45, 106, 79, 0.85)), 
+                url('https://unsplash.com') no-repeat center center/cover;
+    color: #ffffff;
+    padding: 120px 20px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.banner h1 {
+    color: #ffffff;
+    font-size: 2.8rem;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    line-height: 1.2;
+}
+
+.banner p {
+    color: #d8f3dc;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+}
+
+/* ==========================================================================
+   5. SEÇÃO 1: ECONOMIA E SEÇÃO 3: DESAFIOS
+   ========================================================================== */
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+/* Marcador personalizado verde para as listas */
+ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Simulação do Gráfico */
+#economia div[style*="background:#eee"] {
+    background: #eaedf0 !important;
+    border: 2px dashed #b7bfcc;
+    color: #718096;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+
+/* ==========================================================================
+   6. SEÇÃO 2: CAMINHO DA SUSTENTABILIDADE (CARDS)
+   ========================================================================== */
+.cards-container {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card {
+    flex: 1;
+    min-width: 280px;
+    border: none;
+    padding: 30px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    color: #1b4332;
+}
+
+/* ==========================================================================
+   7. SEÇÃO 4: QUIZ INTERATIVO
+   ========================================================================== */
+.quiz-container {
+    background: #e8f5e9;
+    padding: 40px;
+    border-radius: 12px;
+    border-left: 6px solid #2e7d32;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.quiz-container h2 {
+    color: #1b5e20;
+    margin-bottom: 15px;
+}
+
+.quiz-container h2::after {
+    background-color: #2e7d32;
+}
+
+#quiz-question {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+#quiz-form label {
+    display: inline-block;
+    background: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 1px solid #d4edda;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+#quiz-form label:hover {
+    background-color: #f1f8e9;
+    border-color: #a5d6a7;
+}
+
+#quiz-form input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #2e7d32; /* Cor interna do botão de rádio */
+}
+
+/* ==========================================================================
+   8. SEÇÃO 5: FORMULÁRIO DE CONTATO & BLOCO DE CITAÇÃO
+   ========================================================================== */
+form input, form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus, form textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+form textarea {
+    resize: vertical;
+}
+
+blockquote {
+    font-size: 1.6rem;
+    font-style: italic;
+    color: #1b5e20;
+    line-height: 1.4;
+    border-left: 4px solid #52b788;
+    padding-left: 20px;
+}
+
+/* Ajuste fino na área lateral do formulário */
+#contato div[style*="background:#f4f4f4"] {
+    background: linear-gradient(135deg, #e8f5e9, #f4fbf7) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.01);
+}
+
+/* ==========================================================================
+   9. RODAPÉ (FOOTER)
+   ========================================================================== */
+footer {
+    background-color: #111111;
+    color: #a0aec0;
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 60px;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   10. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    nav a {
+        margin: 0 10px;
+        font-size: 0.95rem;
+    }
+
+    .banner {
+        padding: 80px 20px;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+    }
+
+    .grid-2 {
+        gap: 30px;
+    }
+    
+    blockquote {
+        font-size: 1.3rem;
+    }
+}
 
