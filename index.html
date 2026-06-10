@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Forte, Futuro Sustentável</title>
+    <!-- Link para folha de estilos externa (Opcional) -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos básicos apenas para visualização inicial estruturada */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
+        header { background: #1e4620; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: white; margin-left: 15px; text-decoration: none; }
+        .banner { background: #4a7c59; color: white; padding: 100px 20px; text-align: center; }
+        section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .cards-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .card { flex: 1; min-width: 250px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #f9f9f9; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .quiz-container { background: #e8f5e9; padding: 30px; border-radius: 8px; border-left: 5px solid #2e7d32; }
+        .btn { background: #2e7d32; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+        .btn:hover { background: #1b5e20; }
+        footer { background: #111; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+        form input, form textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO & MENU -->
+    <header>
+        <div class="logo">
+            <strong>[LOGO AGRO]</strong>
+        </div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#economia">Economia</a>
+            <a href="#sustentavel">Sustentável</a>
+            <a href="#desafios">Desafios</a>
+            <a href="#quiz">Quiz</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <!-- BANNER PRINCIPAL (HOME) -->
+    <section id="home" class="banner">
+        <h1>Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente</h1>
+        <p>Como alinhar a alta produtividade do campo com a preservação dos recursos naturais do planeta?</p>
+        <a href="#economia"><button class="btn">Saiba Mais</button></a>
+    </section>
+
+    <!-- SEÇÃO 1: PRODUÇÃO AGRÍCOLA E ECONOMIA -->
+    <section id="economia">
+        <h2>Seção 1 – Produção Agrícola e Economia</h2>
+        <div class="grid-2">
+            <div>
+                <h3>O Motor da Economia</h3>
+                <p>O agronegócio é um dos principais pilares do PIB e da geração de empregos. O grande desafio atual é garantir que esse crescimento aconteça em total harmonia com o meio ambiente.</p>
+                <!-- Espaço para Gráficos Interativos -->
+                <div style="background:#eee; height:200px; display:flex; align-items:center; justify-content:center; border-radius:5px;">
+                    [Gráfico Interativo: Evolução do PIB do Agro]
+                </div>
+            </div>
+            <div>
+                <h3>Tecnologias que Impulsionam o Campo</h3>
+                <ul>
+                    <li><strong>Agricultura de Precisão:</strong> Aplicação exata de insumos via dados e sensores.</li>
+                    <li><strong>Drones Agrícolas:</strong> Monitoramento aéreo rápido contra pragas e focos de incêndio.</li>
+                    <li><strong>Energia Renovável:</strong> Fazendas autossuficientes com matrizes solar e biomassa.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: CAMINHO DA SUSTENTABILIDADE -->
+    <section id="sustentavel">
+        <h2>Seção 2 – Caminho da Sustentabilidade</h2>
+        <div class="cards-container">
+            <article class="card">
+                <h3>🔄 Rotação de Culturas</h3>
+                <p>Alternar espécies de plantas na mesma área para quebrar ciclos de pragas e melhorar os nutrientes naturais presentes no solo.</p>
+            </article>
+            <article class="card">
+                <h3>🌱 Conservação de Solos</h3>
+                <p>Práticas como o plantio direto evitam a erosão, mantendo a cobertura de palhada e retendo a umidade da terra por muito mais tempo.</p>
+            </article>
+            <article class="card">
+                <h3>☀️ Energias Limpas</h3>
+                <p>Uso estratégico de painéis fotovoltaicos e usinas de biomassa geradas a partir de resíduos orgânicos da própria produção agrícola.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: DESAFIOS AMBIENTAIS -->
+    <section id="desafios">
+        <h2>🚨 Seção 3 – Desafios Ambientais</h2>
+        <p>A conscientização é o primeiro passo para a mudança. Conheça os principais riscos que combatemos com o manejo sustentável:</p>
+        <div class="grid-2">
+            <div>
+                <h3>Combate ao Desmatamento</h3>
+                <p>A destruição de áreas nativas afeta drasticamente a biodiversidade. A solução real está na <strong>intensificação sustentável</strong>, produzindo mais alimentos usando a mesma área já aberta.</p>
+            </div>
+            <div>
+                <h3>Manejo Eficiente da Água</h3>
+                <p>A irrigação inteligente e sistemas automatizados reduzem o desperdício hídrico, calculando com precisão milimétrica a umidade que o solo precisa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESAFIO COMPLEMENTAR: QUIZ INTERATIVO -->
+    <section id="quiz">
+        <div class="quiz-container">
+            <h2>Test seu Conhecimento no Agro Sustentável</h2>
+            <div id="question-block">
+                <p id="quiz-question"><strong>Pergunta:</strong> Qual tecnologia agrícola ajuda diretamente a economizar água monitorando as condições do solo em tempo real?</p>
+                <form id="quiz-form">
+                    <label><input type="radio" name="answer" value="A"> A) Trator comum.</label><br>
+                    <label><input type="radio" name="answer" value="B"> B) Irrigação Inteligente.</label><br>
+                    <label><input type="radio" name="answer" value="C"> C) Arado convencional.</label><br><br>
+                    <button type="button" class="btn" onclick="checkAnswer()">Enviar Resposta</button>
+                </form>
+                <p id="quiz-result" style="font-weight: bold; margin-top: 15px;"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: CONECTE-SE (CONTATO E ENGAJAMENTO) -->
+    <section id="contato">
+        <div class="grid-2">
+            <div>
+                <h2>Seção 5 – Conecte-se</h2>
+                <p>Fique por dentro das novidades do novo agro sustentável ou envie suas dúvidas para a nossa equipe técnica.</p>
+                <form id="contact-form" onsubmit="validateForm(event)">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" placeholder="Seu nome completo">
+                    
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" placeholder="seuemail@exemplo.com">
+                    
+                    <label for="message">Mensagem:</label>
+                    <textarea id="message" rows="4" placeholder="Sua mensagem de conscientização ou dúvida"></textarea>
+                    
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; background:#f4f4f4; border-radius:8px;">
+                <blockquote style="font-size: 1.5rem; font-style: italic; color: #2e7d32;">
+                    "Preservar a terra hoje é garantir o pão de amanhã."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 AgroForte Sustentável - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- LÓGICA EM JAVASCRIPT (Validações e Interações) -->
+    <script>
+        // Função para validar o Quiz interativo
+        function checkAnswer() {
+            const options = document.getElementsByName('answer');
+            let selectedValue = "";
+            for (const option of options) {
+                if (option.checked) {
+                    selectedValue = option.value;
+                    break;
+                }
+            }
+
+            const resultElement = document.getElementById('quiz-result');
+            if (selectedValue === "B") {
+                resultElement.textContent = "🟢 Correto! A Irrigação Inteligente economiza água monitorando o solo em tempo real.";
+                resultElement.style.color = "green";
+            } else if (selectedValue === "") {
+                resultElement.textContent = "⚠️ Por favor, selecione uma alternativa antes de enviar.";
+                resultElement.style.color = "orange";
+            } else {
+                resultElement.textContent = "🔴 Incorreto. Tente novamente! Dica: O sistema automatizado monitora a umidade.";
+                resultElement.style.color = "red";
+            }
+        }
+
+        // Função para validar o Formulário de Contato
+        function validateForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === "" || email === "" || message === "") {
+                alert("Por favor, preencha todos os campos do formulário.");
+                return false;
+            }
+
 
