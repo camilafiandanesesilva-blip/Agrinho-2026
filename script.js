@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================================================
-   1. RENDERIZAÇÃO DINÂMICA DO GRÁFICO DO PIB (COM IMAGENS DE FUNDO)
+   1. RENDERIZAÇÃO DINÂMICA DO GRÁFICO DO PIB (COM IMAGEM DE FUNDO NO CONTAINER)
    ========================================================================== */
 function inicializarGraficoPIB() {
     const containerGrafico = document.querySelector('#economia div[style*="background:#eee"]');
@@ -22,41 +22,53 @@ function inicializarGraficoPIB() {
     containerGrafico.removeAttribute('style');
     containerGrafico.id = "grafico-pib-container";
 
-    // Mapeamento dos anos com suas respectivas imagens da pasta assets
-    // ATENÇÃO: Altere os nomes abaixo (.png/.jpg) para os nomes exatos das suas imagens
+    // Dados de crescimento do agro nos últimos anos
     const dadosPIB = [
-        { ano: '20224', porcentagem: 65, imagem: '1782224192692.png' },
-        { ano: '2025', porcentagem: 78, imagem: '1782224237651.png' },
-        
+        { ano: '2022', porcentagem: 65 },
+        { ano: '2023', porcentagem: 78 },
+        { ano: '2024', porcentagem: 84 },
+        { ano: '2025', porcentagem: 95 }
     ];
 
-    // Cria a estrutura visual das barras injetando as imagens no background
-    let htmlGrafico = `<div class="chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 220px; padding: 10px; width: 100%; gap: 10px;">`;
+    // ATENÇÃO: Altere 'fundo-grafico.jpg' para o nome exato da imagem que está na sua pasta assets
+    let htmlGrafico = `
+        <div class="chart-wrapper" style="
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: space-around; 
+            height: 220px; 
+            padding: 25px 15px 10px 15px; 
+            width: 100%; 
+            gap: 15px;
+            background-image: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.75)), url('assets/fundo-grafico.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        ">`;
     
     dadosPIB.forEach(item => {
         htmlGrafico += `
             <div class="chart-bar-container" style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="chart-bar" style="
                     height: 0%; 
-                    background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('assets/${item.imagem}'); 
-                    background-size: cover; 
-                    background-position: center; 
-                    background-color: #52b788; 
+                    background: #52b788; 
                     margin: 0 auto; 
-                    width: 50px; 
+                    width: 45px; 
                     border-radius: 6px 6px 0 0; 
                     transition: height 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                    box-shadow: 0 4px 8px rgba(82, 183, 136, 0.3);
                     position: relative;
                     display: flex;
                     align-items: flex-start;
                     justify-content: center;
-                    padding-top: 5px;
+                    padding-top: 6px;
                 " data-height="${item.porcentagem}%">
-                    <!-- Exibe a porcentagem no topo interno da barra de forma legível -->
-                    <span style="color: #ffffff; font-size: 0.75rem; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">${item.porcentagem}%</span>
+                    <!-- Exibe a porcentagem no topo da barra -->
+                    <span style="color: #ffffff; font-size: 0.75rem; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">${item.porcentagem}%</span>
                 </div>
-                <span style="display: block; font-size: 0.85rem; margin-top: 8px; color: #4a5568; font-weight: bold;">${item.ano}</span>
+                <span style="display: block; font-size: 0.85rem; margin-top: 8px; color: #2d3748; font-weight: bold;">${item.ano}</span>
             </div>
         `;
     });
@@ -175,5 +187,6 @@ function configurarFormularioContato() {
         }, 1200);
     });
 }
+
 
 
