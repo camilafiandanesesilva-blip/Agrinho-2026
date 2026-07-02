@@ -25,10 +25,9 @@ function inicializarGraficoPIB() {
     // Mapeamento dos anos com suas respectivas imagens da pasta assets
     // ATENÇÃO: Altere os nomes abaixo (.png/.jpg) para os nomes exatos das suas imagens
     const dadosPIB = [
-        { ano: '2022', porcentagem: 65, imagem: 'imagem-pib-2022.jpg' },
-        { ano: '2023', porcentagem: 78, imagem: 'imagem-pib-2023.jpg' },
-        { ano: '2024', porcentagem: 84, imagem: 'imagem-pib-2024.jpg' },
-        { ano: '2025', porcentagem: 95, imagem: 'imagem-pib-2025.jpg' }
+        { ano: '20224', porcentagem: 65, imagem: '1782224192692.png' },
+        { ano: '2025', porcentagem: 78, imagem: '1782224237651.png' },
+        
     ];
 
     // Cria a estrutura visual das barras injetando as imagens no background
