@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================================================
-   1. RENDERIZAÇÃO DINÂMICA DO GRÁFICO DO PIB
+   1. RENDERIZAÇÃO DINÂMICA DO GRÁFICO DO PIB (COM IMAGENS DE FUNDO)
    ========================================================================== */
 function inicializarGraficoPIB() {
     const containerGrafico = document.querySelector('#economia div[style*="background:#eee"]');
@@ -22,22 +22,42 @@ function inicializarGraficoPIB() {
     containerGrafico.removeAttribute('style');
     containerGrafico.id = "grafico-pib-container";
 
-    // Dados simulados de crescimento do agro nos últimos anos
+    // Mapeamento dos anos com suas respectivas imagens da pasta assets
+    // ATENÇÃO: Altere os nomes abaixo (.png/.jpg) para os nomes exatos das suas imagens
     const dadosPIB = [
-        { ano: '2022', porcentagem: 65 },
-        { ano: '2023', porcentagem: 78 },
-        { ano: '2024', porcentagem: 84 },
-        { ano: '2025', porcentagem: 95 }
+        { ano: '2022', porcentagem: 65, imagem: 'imagem-pib-2022.jpg' },
+        { ano: '2023', porcentagem: 78, imagem: 'imagem-pib-2023.jpg' },
+        { ano: '2024', porcentagem: 84, imagem: 'imagem-pib-2024.jpg' },
+        { ano: '2025', porcentagem: 95, imagem: 'imagem-pib-2025.jpg' }
     ];
 
-    // Cria a estrutura visual das barras via JavaScript
-    let htmlGrafico = `<div class="chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 180px; padding: 10px; width: 100%;">`;
+    // Cria a estrutura visual das barras injetando as imagens no background
+    let htmlGrafico = `<div class="chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 220px; padding: 10px; width: 100%; gap: 10px;">`;
     
     dadosPIB.forEach(item => {
         htmlGrafico += `
-            <div class="chart-bar-container" style="text-align: center; flex: 1;">
-                <div class="chart-bar" style="height: 0%; background: #52b788; margin: 0 auto; width: 40px; border-radius: 4px 4px 0 0; transition: height 1.5s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.1);" data-height="${item.porcentagem}%"></div>
-                <span style="display: block; font-size: 0.85rem; margin-top: 5px; color: #4a5568; font-weight: bold;">${item.ano}</span>
+            <div class="chart-bar-container" style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                <div class="chart-bar" style="
+                    height: 0%; 
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('assets/${item.imagem}'); 
+                    background-size: cover; 
+                    background-position: center; 
+                    background-color: #52b788; 
+                    margin: 0 auto; 
+                    width: 50px; 
+                    border-radius: 6px 6px 0 0; 
+                    transition: height 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                    position: relative;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    padding-top: 5px;
+                " data-height="${item.porcentagem}%">
+                    <!-- Exibe a porcentagem no topo interno da barra de forma legível -->
+                    <span style="color: #ffffff; font-size: 0.75rem; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">${item.porcentagem}%</span>
+                </div>
+                <span style="display: block; font-size: 0.85rem; margin-top: 8px; color: #4a5568; font-weight: bold;">${item.ano}</span>
             </div>
         `;
     });
@@ -45,23 +65,21 @@ function inicializarGraficoPIB() {
     htmlGrafico += `</div>`;
     containerGrafico.innerHTML = htmlGrafico;
 
-    // Anima as barras subindo logo após a renderização
+    // Anima as barras subindo com efeito suave após a renderização
     setTimeout(() => {
         const barras = containerGrafico.querySelectorAll('.chart-bar');
         barras.forEach(barra => {
             barra.style.height = barra.getAttribute('data-height');
         });
-    }, 300);
+    }, 200);
 }
 
 /* ==========================================================================
    2. ANIMAÇÃO DE COMPONENTES AO ROLAR A PÁGINA (SCROLL REVEAL)
    ========================================================================== */
 function configurarAnimaçãoScroll() {
-    // Seleciona elementos que vão ganhar animação de surgimento
     const elementosParaAnimar = document.querySelectorAll('section, .card, .quiz-container');
 
-    // Aplica estilos iniciais invisíveis via JS para manter o CSS limpo
     elementosParaAnimar.forEach(el => {
         el.style.opacity = "0";
         el.style.transform = "translateY(20px)";
@@ -81,7 +99,6 @@ function configurarAnimaçãoScroll() {
         });
     };
 
-    // Executa uma vez no início e vincula ao evento de rolagem do navegador
     checarScroll();
     window.addEventListener('scroll', checarScroll);
 }
@@ -93,7 +110,6 @@ function configurarQuiz() {
     const botaoEnviar = document.querySelector('#quiz-form button');
     if (!botaoEnviar) return;
 
-    // Substitui o onclick antigo do HTML por um EventListener moderno
     botaoEnviar.removeAttribute('onclick');
     botaoEnviar.addEventListener('click', () => {
         const opcaoSelecionada = document.querySelector('input[name="answer"]:checked');
@@ -105,7 +121,6 @@ function configurarQuiz() {
             return;
         }
 
-        // Validação da resposta correta (Alternativa B)
         if (opcaoSelecionada.value === "B") {
             campoResultado.textContent = "🎉 Excelente! A irrigação inteligente monitora o solo e economiza água.";
             campoResultado.style.color = "#16a34a";
@@ -118,7 +133,6 @@ function configurarQuiz() {
             opcaoSelecionada.parentElement.style.borderColor = "#dc2626";
         }
 
-        // Bloqueia as opções após o envio para evitar alterações
         document.querySelectorAll('input[name="answer"]').forEach(input => input.disabled = true);
         botaoEnviar.disabled = true;
         botaoEnviar.style.opacity = "0.5";
@@ -133,23 +147,20 @@ function configurarFormularioContato() {
     const formulario = document.getElementById('contact-form');
     if (!formulario) return;
 
-    // Remove a chamada inline do HTML para centralizar as ações no JS
     formulario.removeAttribute('onsubmit');
     
     formulario.addEventListener('submit', (event) => {
-        event.preventDefault(); // Impede o recarregamento indesejado da página
+        event.preventDefault();
 
         const nome = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const mensagem = document.getElementById('message').value.trim();
 
-        // Validação contra campos cheios apenas de espaços vazios
         if (nome === "" || email === "" || mensagem === "") {
             alert("Por favor, preencha todos os campos corretamente.");
             return;
         }
 
-        // Simulação de envio com feedback interativo no botão
         const botaoSubmit = formulario.querySelector('button[type="submit"]');
         const textoOriginal = botaoSubmit.textContent;
         
@@ -160,9 +171,10 @@ function configurarFormularioContato() {
             alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada à nossa equipe.`);
             formulario.reset();
             
-            // Restaura o estado original do botão de envio
             botaoSubmit.textContent = textoOriginal;
             botaoSubmit.disabled = false;
         }, 1200);
     });
 }
+
+
