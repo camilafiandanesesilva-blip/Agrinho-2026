@@ -54,9 +54,9 @@
             <div>
                 <h3>O Motor da Economia</h3>
                 <p>O agronegócio é um dos principais pilares do PIB e da geração de empregos. O grande desafio atual é garantir que esse crescimento aconteça em total harmonia com o meio ambiente.</p>
-                <!-- Espaço para Gráficos Interativos -->
-                <div style="background:#eee; height:200px; display:flex; align-items:center; justify-content:center; border-radius:5px;">
-                    [Gráfico Interativo: Evolução do PIB do Agro]
+                <!-- Espaço para Gráficos Interativos - CORRIGIDO COM A ID PARA O SCRIPT EM JS -->
+                <div id="grafico-pib-container">
+                    [Carregando Gráfico Interativo...]
                 </div>
             </div>
             <div>
@@ -108,14 +108,14 @@
     <!-- DESAFIO COMPLEMENTAR: QUIZ INTERATIVO -->
     <section id="quiz">
         <div class="quiz-container">
-            <h2>Test seu Conhecimento no Agro Sustentável</h2>
+            <h2>Teste seu Conhecimento no Agro Sustentável</h2>
             <div id="question-block">
                 <p id="quiz-question"><strong>Pergunta:</strong> Qual tecnologia agrícola ajuda diretamente a economizar água monitorando as condições do solo em tempo real?</p>
                 <form id="quiz-form">
                     <label><input type="radio" name="answer" value="A"> A) Trator comum.</label><br>
                     <label><input type="radio" name="answer" value="B"> B) Irrigação Inteligente.</label><br>
                     <label><input type="radio" name="answer" value="C"> C) Arado convencional.</label><br><br>
-                    <button type="button" class="btn" onclick="checkAnswer()">Enviar Resposta</button>
+                    <button type="button" class="btn">Enviar Resposta</button>
                 </form>
                 <p id="quiz-result" style="font-weight: bold; margin-top: 15px;"></p>
             </div>
@@ -128,7 +128,7 @@
             <div>
                 <h2>Seção 5 – Conecte-se</h2>
                 <p>Fique por dentro das novidades do novo agro sustentável ou envie suas dúvidas para a nossa equipe técnica.</p>
-                <form id="contact-form" onsubmit="validateForm(event)">
+                <form id="contact-form">
                     <label for="name">Nome:</label>
                     <input type="text" id="name" placeholder="Seu nome completo">
                     
@@ -154,42 +154,9 @@
         <p>&copy; 2026 AgroForte Sustentável - Todos os direitos reservados.</p>
     </footer>
 
-    <!-- LÓGICA EM JAVASCRIPT (Validações e Interações) -->
-    <script>
-        // Função para validar o Quiz interativo
-        function checkAnswer() {
-            const options = document.getElementsByName('answer');
-            let selectedValue = "";
-            for (const option of options) {
-                if (option.checked) {
-                    selectedValue = option.value;
-                    break;
-                }
-            }
+    <!-- VÍNCULO OBRIGATÓRIO DO SCRIPT.JS PARA O GRÁFICO FUNCIONAR -->
+    <script src="script.js"></script>
 
-            const resultElement = document.getElementById('quiz-result');
-            if (selectedValue === "B") {
-                resultElement.textContent = "🟢 Correto! A Irrigação Inteligente economiza água monitorando o solo em tempo real.";
-                resultElement.style.color = "green";
-            } else if (selectedValue === "") {
-                resultElement.textContent = "⚠️ Por favor, selecione uma alternativa antes de enviar.";
-                resultElement.style.color = "orange";
-            } else {
-                resultElement.textContent = "🔴 Incorreto. Tente novamente! Dica: O sistema automatizado monitora a umidade.";
-                resultElement.style.color = "red";
-            }
-        }
-
-        // Função para validar o Formulário de Contato
-        function validateForm(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            if (name === "" || email === "" || message === "") {
-                alert("Por favor, preencha todos os campos do formulário.");
-                return false;
-            }
-
+</body>
+</html>
 
