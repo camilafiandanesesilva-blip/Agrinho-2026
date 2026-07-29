@@ -1,330 +1,366 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgroVerde — Agricultura Sustentável</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', system-ui, sans-serif; }
-  body { background:#f4f9f1; color:#1f2d1a; line-height:1.6; }
-  header {
-    background:linear-gradient(135deg,#1b5e20,#388e3c);
-    color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between;
-    align-items:center; position:sticky; top:0; z-index:100;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
-  }
-  header h1 { font-size:1.5rem; }
-  nav a { color:#fff; margin-left:1.5rem; text-decoration:none; font-weight:500; transition:.2s; }
-  nav a:hover { color:#c8e6c9; }
-  .hero {
-    background:linear-gradient(rgba(27,94,32,.7),rgba(27,94,32,.7)),
-      url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600') center/cover;
-    color:#fff; padding:5rem 2rem; text-align:center;
-  }
-  .hero h2 { font-size:2.8rem; margin-bottom:1rem; }
-  .hero p { font-size:1.2rem; max-width:700px; margin:0 auto; }
-  section { padding:4rem 2rem; max-width:1200px; margin:0 auto; }
-  section h3 {
-    font-size:2rem; color:#1b5e20; margin-bottom:1.5rem;
-    border-left:5px solid #66bb6a; padding-left:1rem;
-  }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
-  .card {
-    background:#fff; padding:1.5rem; border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08); transition:.3s;
-  }
-  .card:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(0,0,0,.12); }
-  .card .icon { font-size:2.5rem; margin-bottom:.5rem; }
-  .card h4 { color:#2e7d32; margin-bottom:.5rem; }
-  .charts-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem; }
-  .chart-box {
-    background:#fff; padding:1.5rem; border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-  }
-  .chart-box canvas { max-height:300px; }
-  /* Quiz */
-  #quiz {
-    background:#fff; padding:2rem; border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-  }
-  #quiz .question { font-size:1.2rem; font-weight:600; margin-bottom:1rem; color:#1b5e20; }
-  .options { display:grid; gap:.8rem; }
-  .options button {
-    text-align:left; padding:1rem; border:2px solid #c8e6c9;
-    background:#f1f8e9; border-radius:8px; cursor:pointer;
-    font-size:1rem; transition:.2s;
-  }
-  .options button:hover { background:#c8e6c9; }
-  .options button.correct { background:#66bb6a; color:#fff; border-color:#2e7d32; }
-  .options button.wrong { background:#ef5350; color:#fff; border-color:#c62828; }
-  #quiz-feedback { margin-top:1rem; font-weight:600; min-height:1.5rem; }
-  #quiz-progress { color:#555; margin-bottom:1rem; font-size:.9rem; }
-  #quiz-score { font-size:1.3rem; color:#2e7d32; font-weight:700; margin-top:1rem; }
-  /* Formulário */
-  form {
-    background:#fff; padding:2rem; border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08); display:grid; gap:1rem; max-width:600px;
-  }
-  form label { font-weight:600; color:#1b5e20; }
-  form input, form textarea, form select {
-    padding:.8rem; border:2px solid #c8e6c9; border-radius:8px;
-    font-size:1rem; font-family:inherit;
-  }
-  form input:focus, form textarea:focus, form select:focus {
-    outline:none; border-color:#2e7d32;
-  }
-  form button {
-    background:#2e7d32; color:#fff; padding:1rem; border:none;
-    border-radius:8px; font-size:1rem; font-weight:600;
-    cursor:pointer; transition:.2s;
-  }
-  form button:hover { background:#1b5e20; }
-  #form-msg { padding:1rem; border-radius:8px; display:none; }
-  #form-msg.success { background:#c8e6c9; color:#1b5e20; display:block; }
-  #form-msg.error { background:#ffcdd2; color:#b71c1c; display:block; }
-  footer {
-    background:#1b5e20; color:#fff; text-align:center; padding:2rem; margin-top:3rem;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 - Agro forte, futuro sustentável</title>
+    <!-- Biblioteca Chart.js para gráficos reais e interativos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- ESTILOS GERAIS E MODERNOS --- */
+        :root {
+            --primary: #2e7d32;
+            --secondary: #66bb6a;
+            --accent: #f9fbe7;
+            --dark: #1b5e20;
+            --text: #333;
+            --light: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { color: var(--text); line-height: 1.6; background-color: #f4f7f4; }
+        
+        /* Hero Section */
+        header {
+            background: linear-gradient(rgba(27, 94, 32, 0.85), rgba(46, 125, 50, 0.85)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600') center/cover;
+            color: var(--light);
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        header h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+        header p { font-size: 1.3rem; max-width: 800px; margin: 0 auto 2rem; }
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--light);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover { background: var(--dark); transform: translateY(-2px); }
+
+        /* Seções e Cards */
+        section { padding: 4rem 1rem; max-width: 1200px; margin: 0 auto; }
+        h2 { color: var(--dark); font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
+        h3 { color: var(--primary); font-size: 1.4rem; margin-bottom: 1rem; }
+        
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-top: 4px solid var(--secondary);
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+
+        /* Container do Gráfico */
+        .chart-container {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        /* Quiz Interativo */
+        .quiz-container {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .quiz-options { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+        .quiz-btn {
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            background: var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .quiz-btn:hover:not(:disabled) { background: var(--secondary); color: white; }
+        .quiz-btn.correct { background: #4caf50 !important; color: white !important; border-color: #2e7d32 !important; }
+        .quiz-btn.wrong { background: #ef5350 !important; color: white !important; border-color: #c62828 !important; }
+        #quiz-feedback { font-weight: bold; margin-top: 1rem; min-height: 1.5rem; }
+
+        /* Formulário Funcional */
+        .form-container {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark); }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        #form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        #form-message.success { background: #e8f5e9; color: #2e7d32; display: block; }
+        #form-message.error { background: #ffebee; color: #c62828; display: block; }
+
+        /* Rodapé */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 4rem;
+        }
+        footer blockquote {
+            font-size: 1.3rem;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            section { padding: 2rem 1rem; }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>🌾 AgroVerde</h1>
-  <nav>
-    <a href="#tecnologias">Tecnologias</a>
-    <a href="#dados">Dados</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#contato">Contato</a>
-  </nav>
-</header>
+    <!-- Hero Section -->
+    <header>
+        <h1>Agro forte, futuro sustentável</h1>
+        <p>Equilíbrio entre produção e meio ambiente: Como alinhar a alta produtividade do campo com a preservação dos recursos naturais do planeta?</p>
+        <a href="#secao1" class="btn">Saiba Mais</a>
+    </header>
 
-<div class="hero">
-  <h2>Agricultura Sustentável</h2>
-  <p>Tecnologia e consciência ambiental caminhando juntas para um futuro produtivo e responsável.</p>
-</div>
+    <!-- Seção 1 -->
+    <section id="secao1">
+        <h2>Produção Agrícola e Economia</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>📈 O Motor da Economia</h3>
+                <p>O agronegócio é um dos principais pilares do PIB e da geração de empregos. O grande desafio atual é garantir que esse crescimento aconteça em total harmonia com o meio ambiente.</p>
+            </div>
+            <div class="card">
+                <h3>🚜 Tecnologias que Impulsionam o Campo</h3>
+                <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+                    <li><strong>Agricultura de Precisão:</strong> Aplicação exata de insumos via dados e sensores.</li>
+                    <li><strong>Drones Agrícolas:</strong> Monitoramento aéreo rápido contra pragas e focos de incêndio.</li>
+                    <li><strong>Energia Renovável:</strong> Fazendas autossuficientes com matrizes solar e biomassa.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- GRÁFICO REAL (Substituindo o placeholder "[Carregando Gráfico Interativo...]") -->
+        <div class="chart-container">
+            <h3 style="text-align: center; margin-bottom: 1rem;">Impacto das Práticas Sustentáveis na Produtividade</h3>
+            <canvas id="agroChart"></canvas>
+        </div>
+    </section>
 
-<section id="tecnologias">
-  <h3>Tecnologias em Destaque</h3>
-  <div class="cards">
-    <div class="card">
-      <div class="icon">🚁</div>
-      <h4>Drones Agrícolas</h4>
-      <p>Mapeamento aéreo de lavouras, aplicação precisa de insumos e monitoramento em tempo real, reduzindo custos e desperdícios.</p>
-    </div>
-    <div class="card">
-      <div class="icon">🌱</div>
-      <h4>Plantio Direto</h4>
-      <p>Sistema que preserva a palhada, melhora a retenção de água, reduz erosão e aumenta o carbono orgânico no solo.</p>
-    </div>
-    <div class="card">
-      <div class="icon">💧</div>
-      <h4>Irrigação Inteligente</h4>
-      <p>Sensores de umidade e IA ajustam o volume de água, economizando até 40% em comparação a métodos tradicionais.</p>
-    </div>
-    <div class="card">
-      <div class="icon">🛰️</div>
-      <h4>Agricultura de Precisão</h4>
-      <p>Uso de GPS, sensores e dados satelitais para otimizar cada metro quadrado da propriedade rural.</p>
-    </div>
-  </div>
-</section>
+    <!-- Seção 2 -->
+    <section id="secao2" style="background-color: #e8f5e9;">
+        <h2>Caminho da Sustentabilidade</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>🔄 Rotação de Culturas</h3>
+                <p>Alternar espécies de plantas na mesma área para quebrar ciclos de pragas e melhorar os nutrientes naturais presentes no solo.</p>
+            </div>
+            <div class="card">
+                <h3>🌱 Conservação de Solos</h3>
+                <p>Práticas como o plantio direto evitam a erosão, mantendo a cobertura de palhada e retendo a umidade da terra por muito mais tempo.</p>
+            </div>
+            <div class="card">
+                <h3>☀️ Energias Limpas</h3>
+                <p>Uso estratégico de painéis fotovoltaicos e usinas de biomassa geradas a partir de resíduos orgânicos da própria produção agrícola.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="dados">
-  <h3>Dados Reais do Agro Sustentável</h3>
-  <div class="charts-grid">
-    <div class="chart-box">
-      <h4 style="color:#2e7d32;margin-bottom:1rem;">Produtividade: Plantio Direto × Convencional (sc/ha)</h4>
-      <canvas id="chartProdutividade"></canvas>
-    </div>
-    <div class="chart-box">
-      <h4 style="color:#2e7d32;margin-bottom:1rem;">Adoção de Tecnologias no Brasil (%)</h4>
-      <canvas id="chartAdocao"></canvas>
-    </div>
-    <div class="chart-box">
-      <h4 style="color:#2e7d32;margin-bottom:1rem;">Redução de Emissões com Práticas Sustentáveis</h4>
-      <canvas id="chartEmissao"></canvas>
-    </div>
-  </div>
-</section>
+    <!-- Seção 3 -->
+    <section id="secao3">
+        <h2>🚨 Desafios Ambientais</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">A conscientização é o primeiro passo para a mudança. Conheça os principais riscos que combatemos com o manejo sustentável:</p>
+        <div class="cards">
+            <div class="card">
+                <h3>🌳 Combate ao Desmatamento</h3>
+                <p>A destruição de áreas nativas afeta drasticamente a biodiversidade. A solução real está na <strong>intensificação sustentável</strong>, produzindo mais alimentos usando a mesma área já aberta.</p>
+            </div>
+            <div class="card">
+                <h3>💧 Manejo Eficiente da Água</h3>
+                <p>A irrigação inteligente e sistemas automatizados reduzem o desperdício hídrico, calculando com precisão milimétrica a umidade que o solo precisa.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="quiz">
-  <h3>Teste seus Conhecimentos</h3>
-  <div id="quiz-container">
-    <p id="quiz-progress"></p>
-    <p class="question" id="quiz-question"></p>
-    <div class="options" id="quiz-options"></div>
-    <p id="quiz-feedback"></p>
-    <p id="quiz-score"></p>
-  </div>
-</section>
+    <!-- Seção 4: QUIZ INTERATIVO FUNCIONAL -->
+    <section id="secao4" style="background-color: #f1f8e9;">
+        <h2>Teste seu Conhecimento no Agro Sustentável</h2>
+        <div class="quiz-container">
+            <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Pergunta: Qual tecnologia agrícola ajuda diretamente a economizar água monitorando as condições do solo em tempo real?</p>
+            <div class="quiz-options" id="quiz-options">
+                <button class="quiz-btn" onclick="checkAnswer(this, false)">A) Trator comum.</button>
+                <button class="quiz-btn" onclick="checkAnswer(this, true)">B) Irrigação Inteligente.</button>
+                <button class="quiz-btn" onclick="checkAnswer(this, false)">C) Arado convencional.</button>
+            </div>
+            <p id="quiz-feedback"></p>
+        </div>
+    </section>
 
-<section id="contato">
-  <h3>Fale Conosco</h3>
-  <form id="contact-form" novalidate>
-    <div>
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" required>
-    </div>
-    <div>
-      <label for="email">E-mail</label>
-      <input type="email" id="email" required>
-    </div>
-    <div>
-      <label for="assunto">Assunto de interesse</label>
-      <select id="assunto" required>
-        <option value="">Selecione...</option>
-        <option>Drones agrícolas</option>
-        <option>Plantio direto</option>
-        <option>Irrigação inteligente</option>
-        <option>Consultoria geral</option>
-      </select>
-    </div>
-    <div>
-      <label for="mensagem">Mensagem</label>
-      <textarea id="mensagem" rows="4" required></textarea>
-    </div>
-    <button type="submit">Enviar mensagem</button>
-    <p id="form-msg"></p>
-  </form>
-</section>
+    <!-- Seção 5: FORMULÁRIO FUNCIONAL COM VALIDAÇÃO -->
+    <section id="secao5">
+        <h2>Conecte-se</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Fique por dentro das novidades do novo agro sustentável ou envie suas dúvidas para a nossa equipe técnica.</p>
+        <div class="form-container">
+            <form id="contactForm" novalidate>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" required placeholder="Seu nome completo">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" rows="4" required placeholder="Como podemos ajudar?"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                <p id="form-message"></p>
+            </form>
+        </div>
+    </section>
 
-<footer>
-  <p>© 2026 AgroVerde — Cultivando o futuro com responsabilidade.</p>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <blockquote>"Preservar a terra hoje é garantir o pão de amanhã."</blockquote>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">© 2026 Agrinho - Projeto Agro Sustentável</p>
+    </footer>
 
-<script>
-/* ========== GRÁFICOS REAIS (substituem "[Carregando Gráfico...]") ========== */
-new Chart(document.getElementById('chartProdutividade'), {
-  type:'bar',
-  data:{
-    labels:['Soja','Milho','Trigo','Feijão'],
-    datasets:[
-      {label:'Plantio Direto', data:[68,112,58,42], backgroundColor:'#2e7d32'},
-      {label:'Convencional',   data:[55, 95,47,35], backgroundColor:'#a5d6a7'}
-    ]
-  },
-  options:{responsive:true, plugins:{legend:{position:'bottom'}}}
-});
+    <!-- SCRIPTS JAVASCRIPT FUNCIONAIS -->
+    <script>
+        // 1. GRÁFICO REAL COM CHART.JS
+        const ctx = document.getElementById('agroChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Produtividade (sc/ha)', 'Retenção de Água no Solo (%)', 'Redução de Erosão (%)'],
+                datasets: [
+                    {
+                        label: 'Manejo Convencional',
+                        data: [55, 40, 30],
+                        backgroundColor: '#a5d6a7',
+                        borderColor: '#66bb6a',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Manejo Sustentável',
+                        data: [68, 75, 85],
+                        backgroundColor: '#2e7d32',
+                        borderColor: '#1b5e20',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
 
-new Chart(document.getElementById('chartAdocao'), {
-  type:'doughnut',
-  data:{
-    labels:['Plantio Direto','Agricultura de Precisão','Drones','Irrigação Inteligente','Outras'],
-    datasets:[{
-      data:[38,22,14,11,15],
-      backgroundColor:['#1b5e20','#388e3c','#66bb6a','#a5d6a7','#c8e6c9']
-    }]
-  },
-  options:{responsive:true, plugins:{legend:{position:'bottom'}}}
-});
+        // 2. LÓGICA DO QUIZ INTERATIVO
+        function checkAnswer(button, isCorrect) {
+            const buttons = document.querySelectorAll('.quiz-btn');
+            const feedback = document.getElementById('quiz-feedback');
+            
+            // Desabilita todos os botões após a escolha para evitar múltiplos cliques
+            buttons.forEach(btn => btn.disabled = true);
 
-new Chart(document.getElementById('chartEmissao'), {
-  type:'line',
-  data:{
-    labels:['2018','2020','2022','2024','2026'],
-    datasets:[{
-      label:'Emissões (t CO₂ eq/ha)',
-      data:[4.2, 3.6, 2.9, 2.3, 1.8],
-      borderColor:'#1b5e20', backgroundColor:'rgba(46,125,50,.2)',
-      fill:true, tension:.3
-    }]
-  },
-  options:{responsive:true, plugins:{legend:{position:'bottom'}}}
-});
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.textContent = '✅ Correto! A Irrigação Inteligente utiliza sensores para aplicar água apenas onde e quando necessário.';
+                feedback.style.color = '#2e7d32';
+            } else {
+                button.classList.add('wrong');
+                feedback.textContent = '❌ Incorreto. A resposta certa é "Irrigação Inteligente", que monitora o solo em tempo real.';
+                feedback.style.color = '#c62828';
+                
+                // Destaca a resposta correta para aprendizado
+                buttons[1].classList.add('correct');
+            }
+        }
 
-/* ========== QUIZ FUNCIONAL ========== */
-const perguntas = [
-  {q:'Qual a principal vantagem do plantio direto?',
-   o:['Aumentar o uso de agrotóxicos','Preservar a palhada e reduzir erosão','Eliminar a rotação de culturas','Acelerar o desmatamento'],
-   r:1},
-  {q:'Drones agrícolas são usados principalmente para:',
-   o:['Transportar gado','Mapear lavouras e aplicar insumos com precisão','Irrigar manualmente','Colher frutas delicadas'],
-   r:1},
-  {q:'A agricultura de precisão utiliza:',
-   o:['Apenas ferramentas manuais','GPS, sensores e dados satelitais','Somente tratores antigos','Métodos sem tecnologia'],
-   r:1}
-];
-let idx=0, acertos=0;
-const qEl=document.getElementById('quiz-question'),
-      oEl=document.getElementById('quiz-options'),
-      fEl=document.getElementById('quiz-feedback'),
-      pEl=document.getElementById('quiz-progress'),
-      sEl=document.getElementById('quiz-score');
+        // 3. VALIDAÇÃO E ENVIO DO FORMULÁRIO
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede o recarregamento da página
+            
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mensagem = document.getElementById('mensagem').value.trim();
+            const msgBox = document.getElementById('form-message');
 
-function carregarPergunta(){
-  if(idx>=perguntas.length){
-    qEl.textContent='Quiz finalizado!';
-    oEl.innerHTML='';
-    fEl.textContent='';
-    sEl.textContent=`Sua pontuação: ${acertos} de ${perguntas.length}`;
-    const btn=document.createElement('button');
-    btn.textContent='Reiniciar';
-    btn.style.cssText='margin-top:1rem;padding:.8rem 1.5rem;background:#2e7d32;color:#fff;border:none;border-radius:8px;cursor:pointer;';
-    btn.onclick=()=>{idx=0;acertos=0;sEl.textContent='';carregarPergunta();};
-    oEl.appendChild(btn);
-    return;
-  }
-  const p=perguntas[idx];
-  pEl.textContent=`Pergunta ${idx+1} de ${perguntas.length}`;
-  qEl.textContent=p.q;
-  oEl.innerHTML='';
-  fEl.textContent='';
-  p.o.forEach((texto,i)=>{
-    const b=document.createElement('button');
-    b.textContent=texto;
-    b.onclick=()=>responder(i,b,p.r);
-    oEl.appendChild(b);
-  });
-}
-function responder(escolha,btn,correta){
-  [...oEl.children].forEach(b=>b.disabled=true);
-  if(escolha===correta){
-    btn.classList.add('correct');
-    fEl.textContent='✅ Correto!';
-    fEl.style.color='#2e7d32';
-    acertos++;
-  } else {
-    btn.classList.add('wrong');
-    oEl.children[correta].classList.add('correct');
-    fEl.textContent='❌ Resposta incorreta.';
-    fEl.style.color='#c62828';
-  }
-  setTimeout(()=>{idx++;carregarPergunta();},1400);
-}
-carregarPergunta();
+            // Validação de regras de negócio
+            if (!nome || nome.length < 3) {
+                msgBox.textContent = '⚠️ Por favor, insira um nome válido (mínimo 3 caracteres).';
+                msgBox.className = 'error';
+                return;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                msgBox.textContent = '⚠️ Por favor, insira um endereço de e-mail válido.';
+                msgBox.className = 'error';
+                return;
+            }
+            if (!mensagem || mensagem.length < 10) {
+                msgBox.textContent = '⚠️ A mensagem deve ter pelo menos 10 caracteres.';
+                msgBox.className = 'error';
+                return;
+            }
 
-/* ========== FORMULÁRIO COM VALIDAÇÃO ========== */
-const form=document.getElementById('contact-form'),
-      msg=document.getElementById('form-msg');
-form.addEventListener('submit',e=>{
-  e.preventDefault();
-  const nome=document.getElementById('nome').value.trim(),
-        email=document.getElementById('email').value.trim(),
-        assunto=document.getElementById('assunto').value,
-        mensagem=document.getElementById('mensagem').value.trim();
-  msg.className='';
-  if(!nome||nome.length<2){
-    msg.textContent='⚠️ Informe um nome válido.';
-    msg.classList.add('error'); return;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    msg.textContent='⚠️ E-mail inválido.';
-    msg.classList.add('error'); return;
-  }
-  if(!assunto){
-    msg.textContent='⚠️ Selecione um assunto.';
-    msg.classList.add('error'); return;
-  }
-  if(mensagem.length<10){
-    msg.textContent='⚠️ A mensagem deve ter ao menos 10 caracteres.';
-    msg.classList.add('error'); return;
-  }
-  msg.textContent=`✅ Obrigado, ${nome}! Sua mensagem sobre "${assunto}" foi registrada.`;
-  msg.classList.add('success');
-  form.reset();
-});
-</script>
+            // Simulação de envio bem-sucedido (em um projeto real, aqui iria uma chamada fetch/API)
+            msgBox.textContent = `✅ Obrigado, ${nome}! Sua mensagem foi registrada com sucesso. Entraremos em contato em breve.`;
+            msgBox.className = 'success';
+            
+            // Limpa os campos do formulário
+            document.getElementById('contactForm').reset();
+            
+            // Esconde a mensagem de sucesso após 6 segundos
+            setTimeout(() => {
+                msgBox.className = '';
+                msgBox.textContent = '';
+            }, 6000);
+        });
+    </script>
 </body>
 </html>
