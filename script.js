@@ -2,190 +2,255 @@
    PORTAL AGROFORTE SUSTENTÁVEL - INTERATIVIDADE E COMPORTAMENTO DINÂMICO
    ========================================================================== */
 
-// Aguarda o carregamento total do HTML antes de executar as funções
 document.addEventListener("DOMContentLoaded", () => {
-    inicializarGraficoPIB();
-    configurarAnimaçãoScroll();
+    inicializarGraficoInterativo();
+    configurarAnimacaoScroll();
     configurarQuiz();
     configurarFormularioContato();
 });
 
 /* ==========================================================================
-   1. RENDERIZAÇÃO DINÂMICA DO GRÁFICO DO PIB (COM IMAGEM DE FUNDO NO CONTAINER)
+   1. GRÁFICO INTERATIVO COM CHART.JS (SUBSTITUI PLACEHOLDER)
    ========================================================================== */
-function inicializarGraficoPIB() {
-    const containerGrafico = document.querySelector('#economia div[style*="background:#eee"]');
-    
-    if (!containerGrafico) return;
+function inicializarGraficoInterativo() {
+    const canvas = document.getElementById('agroChart');
+    if (!canvas) return;
 
-    // Remove os estilos inline antigos para dar lugar ao layout dinâmico
-    containerGrafico.removeAttribute('style');
-    containerGrafico.id = "grafico-pib-container";
+    const ctx = canvas.getContext('2d');
 
-    // Dados de crescimento do agro nos últimos anos
-    const dadosPIB = [
-        { ano: '2022', porcentagem: 65 },
-        { ano: '2023', porcentagem: 78 },
-        { ano: '2024', porcentagem: 84 },
-        { ano: '2025', porcentagem: 95 }
-    ];
-
-    // ATENÇÃO: Altere 'fundo-grafico.jpg' para o nome exato da imagem que está na sua pasta assets
-    let htmlGrafico = `
-        <div class="chart-wrapper" style="
-            display: flex; 
-            align-items: flex-end; 
-            justify-content: space-around; 
-            height: 220px; 
-            padding: 25px 15px 10px 15px; 
-            width: 100%; 
-            gap: 15px;
-            background-image: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.75)), url('assets/fundo-grafico.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        ">`;
-    
-    dadosPIB.forEach(item => {
-        htmlGrafico += `
-            <div class="chart-bar-container" style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                <div class="chart-bar" style="
-                    height: 0%; 
-                    background: #52b788; 
-                    margin: 0 auto; 
-                    width: 45px; 
-                    border-radius: 6px 6px 0 0; 
-                    transition: height 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
-                    box-shadow: 0 4px 8px rgba(82, 183, 136, 0.3);
-                    position: relative;
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: center;
-                    padding-top: 6px;
-                " data-height="${item.porcentagem}%">
-                    <!-- Exibe a porcentagem no topo da barra -->
-                    <span style="color: #ffffff; font-size: 0.75rem; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">${item.porcentagem}%</span>
-                </div>
-                <span style="display: block; font-size: 0.85rem; margin-top: 8px; color: #2d3748; font-weight: bold;">${item.ano}</span>
-            </div>
-        `;
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Produtividade (sc/ha)', 'Retenção de Água (%)', 'Redução de Erosão (%)', 'Uso de Energia (%)'],
+            datasets: [
+                {
+                    label: 'Manejo Convencional',
+                    data: [55, 40, 30, 85],
+                    backgroundColor: '#a5d6a7',
+                    borderColor: '#66bb6a',
+                    borderWidth: 2,
+                    borderRadius: 6
+                },
+                {
+                    label: 'Manejo Sustentável',
+                    data: [68, 75, 85, 40],
+                    backgroundColor: '#2e7d32',
+                    borderColor: '#1b5e20',
+                    borderWidth: 2,
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                duration: 1800,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { size: 13, weight: '600' },
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(27, 94, 32, 0.95)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    padding: 12,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + (context.dataIndex === 0 ? ' sc/ha' : '%');
+                        }
+                    }
+                },
+                title: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) { return value + (this.dataIndex === 0 ? '' : '%'); }
+                    },
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11, weight: '500' } }
+                }
+            }
+        }
     });
-    
-    htmlGrafico += `</div>`;
-    containerGrafico.innerHTML = htmlGrafico;
-
-    // Anima as barras subindo com efeito suave após a renderização
-    setTimeout(() => {
-        const barras = containerGrafico.querySelectorAll('.chart-bar');
-        barras.forEach(barra => {
-            barra.style.height = barra.getAttribute('data-height');
-        });
-    }, 200);
 }
 
 /* ==========================================================================
-   2. ANIMAÇÃO DE COMPONENTES AO ROLAR A PÁGINA (SCROLL REVEAL)
+   2. ANIMAÇÃO DE SCROLL (REVEAL)
    ========================================================================== */
-function configurarAnimaçãoScroll() {
-    const elementosParaAnimar = document.querySelectorAll('section, .card, .quiz-container');
+function configurarAnimacaoScroll() {
+    const elementosParaAnimar = document.querySelectorAll('section, .card, .quiz-container, .form-container');
 
-    elementosParaAnimar.forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(20px)";
-        el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out";
-    });
+    elementosParaAnimar.forEach(el => el.classList.add('reveal'));
 
     const checarScroll = () => {
-        const gatilhoAtivacao = window.innerHeight * 0.85;
+        const gatilhoAtivacao = window.innerHeight * 0.88;
 
         elementosParaAnimar.forEach(el => {
             const topoElemento = el.getBoundingClientRect().top;
-
             if (topoElemento < gatilhoAtivacao) {
-                el.style.opacity = "1";
-                el.style.transform = "translateY(0)";
+                el.classList.add('visible');
             }
         });
     };
 
     checarScroll();
-    window.addEventListener('scroll', checarScroll);
+    window.addEventListener('scroll', checarScroll, { passive: true });
 }
 
 /* ==========================================================================
-   3. SISTEMA DE QUIZ INTERATIVO COM VALIDAÇÃO E FEEDBACK VISUAL
+   3. QUIZ INTERATIVO COM VALIDAÇÃO E FEEDBACK VISUAL
    ========================================================================== */
 function configurarQuiz() {
     const botaoEnviar = document.querySelector('#quiz-form button');
+    const form = document.getElementById('quiz-form');
+    const resultado = document.getElementById('quiz-result');
+    const labels = form.querySelectorAll('label');
+
     if (!botaoEnviar) return;
 
-    botaoEnviar.removeAttribute('onclick');
+    // Feedback tátil ao selecionar uma opção
+    labels.forEach(label => {
+        label.addEventListener('click', () => {
+            labels.forEach(l => l.style.boxShadow = 'none');
+            label.style.boxShadow = '0 0 0 3px rgba(46, 125, 50, 0.3)';
+        });
+    });
+
     botaoEnviar.addEventListener('click', () => {
-        const opcaoSelecionada = document.querySelector('input[name="answer"]:checked');
-        const campoResultado = document.getElementById('quiz-result');
+        const opcaoSelecionada = form.querySelector('input[name="answer"]:checked');
 
         if (!opcaoSelecionada) {
-            campoResultado.textContent = "⚠️ Por favor, escolha uma alternativa antes de enviar!";
-            campoResultado.style.color = "#dc2626";
+            resultado.textContent = "⚠️ Por favor, escolha uma alternativa antes de enviar!";
+            resultado.style.color = "#c62828";
+            resultado.style.backgroundColor = "#ffebee";
             return;
         }
 
+        // Resposta correta: B (Irrigação Inteligente)
+        const labelSelecionado = opcaoSelecionada.parentElement;
+        const labelCorreto = Array.from(labels).find(l => l.querySelector('input').value === 'B');
+
         if (opcaoSelecionada.value === "B") {
-            campoResultado.textContent = "🎉 Excelente! A irrigação inteligente monitora o solo e economiza água.";
-            campoResultado.style.color = "#16a34a";
-            opcaoSelecionada.parentElement.style.background = "#dcfce7";
-            opcaoSelecionada.parentElement.style.borderColor = "#16a34a";
+            labelSelecionado.classList.add('correct');
+            resultado.textContent = "🎉 Excelente! A irrigação inteligente monitora o solo e economiza água aplicando-a com precisão milimétrica.";
+            resultado.style.color = "#2e7d32";
+            resultado.style.backgroundColor = "#e8f5e9";
         } else {
-            campoResultado.textContent = "❌ Resposta incorreta. Tente analisar os impactos das tecnologias tradicionais.";
-            campoResultado.style.color = "#dc2626";
-            opcaoSelecionada.parentElement.style.background = "#fee2e2";
-            opcaoSelecionada.parentElement.style.borderColor = "#dc2626";
+            labelSelecionado.classList.add('wrong');
+            labelCorreto.classList.add('correct');
+            resultado.textContent = "❌ Resposta incorreta. A alternativa certa é a B - Irrigação Inteligente, que monitora a umidade do solo em tempo real.";
+            resultado.style.color = "#c62828";
+            resultado.style.backgroundColor = "#ffebee";
         }
 
-        document.querySelectorAll('input[name="answer"]').forEach(input => input.disabled = true);
+        // Desabilita tudo após responder
+        form.querySelectorAll('input').forEach(input => input.disabled = true);
+        labels.forEach(label => {
+            label.style.cursor = 'default';
+        });
         botaoEnviar.disabled = true;
-        botaoEnviar.style.opacity = "0.5";
-        botaoEnviar.style.cursor = "not-allowed";
     });
 }
 
 /* ==========================================================================
-   4. VALIDAÇÃO INTELIGENTE DO FORMULÁRIO DE CONTATO
+   4. VALIDAÇÃO ROBUSTA DO FORMULÁRIO DE CONTATO
    ========================================================================== */
 function configurarFormularioContato() {
     const formulario = document.getElementById('contact-form');
     if (!formulario) return;
 
-    formulario.removeAttribute('onsubmit');
-    
+    const campos = {
+        nome: { el: document.getElementById('name'), erro: document.getElementById('error-name') },
+        email: { el: document.getElementById('email'), erro: document.getElementById('error-email') },
+        mensagem: { el: document.getElementById('message'), erro: document.getElementById('error-message') }
+    };
+    const msgBox = document.getElementById('form-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Validação em tempo real (ao digitar)
+    Object.keys(campos).forEach(chave => {
+        campos[chave].el.addEventListener('blur', () => validarCampo(chave));
+        campos[chave].el.addEventListener('input', () => {
+            if (campos[chave].el.classList.contains('invalid')) validarCampo(chave);
+        });
+    });
+
+    function validarCampo(chave) {
+        const { el, erro } = campos[chave];
+        const valor = el.value.trim();
+        let valido = true;
+        let msgErro = '';
+
+        if (chave === 'nome') {
+            if (!valor) { msgErro = 'O nome é obrigatório.'; valido = false; }
+            else if (valor.length < 3) { msgErro = 'O nome deve ter pelo menos 3 caracteres.'; valido = false; }
+        } else if (chave === 'email') {
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!valor) { msgErro = 'O e-mail é obrigatório.'; valido = false; }
+            else if (!regexEmail.test(valor)) { msgErro = 'Digite um e-mail válido.'; valido = false; }
+        } else if (chave === 'mensagem') {
+            if (!valor) { msgErro = 'A mensagem é obrigatória.'; valido = false; }
+            else if (valor.length < 10) { msgErro = `Mínimo 10 caracteres (atual: ${valor.length}).`; valido = false; }
+        }
+
+        el.classList.toggle('invalid', !valido);
+        el.classList.toggle('valid', valido);
+        erro.textContent = msgErro;
+        return valido;
+    }
+
     formulario.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const nome = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const mensagem = document.getElementById('message').value.trim();
+        const nomeValido = validarCampo('nome');
+        const emailValido = validarCampo('email');
+        const mensagemValida = validarCampo('mensagem');
 
-        if (nome === "" || email === "" || mensagem === "") {
-            alert("Por favor, preencha todos os campos corretamente.");
+        if (!nomeValido || !emailValido || !mensagemValida) {
+            msgBox.textContent = "⚠️ Por favor, corrija os campos destacados acima.";
+            msgBox.className = 'error';
             return;
         }
 
-        const botaoSubmit = formulario.querySelector('button[type="submit"]');
-        const textoOriginal = botaoSubmit.textContent;
-        
-        botaoSubmit.textContent = "Enviando...";
-        botaoSubmit.disabled = true;
+        // Simulação de envio
+        const textoOriginal = submitBtn.textContent;
+        submitBtn.textContent = "Enviando...";
+        submitBtn.disabled = true;
 
         setTimeout(() => {
-            alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada à nossa equipe.`);
+            msgBox.textContent = `✅ Obrigado, ${campos.nome.el.value.trim()}! Sua mensagem foi registrada com sucesso. Entraremos em contato em breve.`;
+            msgBox.className = 'success';
             formulario.reset();
-            
-            botaoSubmit.textContent = textoOriginal;
-            botaoSubmit.disabled = false;
+            Object.values(campos).forEach(c => {
+                c.el.classList.remove('valid', 'invalid');
+                c.erro.textContent = '';
+            });
+
+            submitBtn.textContent = textoOriginal;
+            submitBtn.disabled = false;
+
+            setTimeout(() => {
+                msgBox.textContent = '';
+                msgBox.className = '';
+            }, 7000);
         }, 1200);
     });
+}
 }
 
 
