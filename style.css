@@ -1,6 +1,20 @@
 /* ==========================================================================
-   1. CONFIGURAÇÕES GERAIS E RESETS
+   1. VARIÁVEIS E RESETS
    ========================================================================== */
+:root {
+    --primary: #2e7d32;
+    --secondary: #66bb6a;
+    --accent: #f9fbe7;
+    --dark: #1b5e20;
+    --text: #333333;
+    --text-light: #4a5568;
+    --light: #ffffff;
+    --bg: #f4f7f4;
+    --error: #c62828;
+    --success: #2e7d32;
+    --border: #e0e0e0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,19 +22,20 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Efeito de rolagem suave ao clicar no menu */
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #2c3e50;
-    background-color: #f8f9fa;
+    color: var(--text);
+    background-color: var(--bg);
 }
 
 h1, h2, h3 {
-    color: #1b4332;
+    color: var(--dark);
     font-weight: 700;
+    line-height: 1.2;
 }
 
 h2 {
@@ -28,33 +43,37 @@ h2 {
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
+    text-align: center;
 }
 
-/* Linha decorativa abaixo dos títulos das seções */
 h2::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background-color: #52b788;
+    background-color: var(--secondary);
     border-radius: 2px;
 }
 
 p {
     margin-bottom: 15px;
-    color: #4a5568;
+    color: var(--text-light);
 }
 
 /* ==========================================================================
-   2. COMPONENTES REUTILIZÁVEIS (BOTÕES, GRIDS, CONTAINER)
+   2. COMPONENTES GERAIS
    ========================================================================== */
 section {
     padding: 60px 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.bg-light-green { background-color: #e8f5e9; max-width: 100%; }
+.bg-pale-green { background-color: #f1f8e9; max-width: 100%; }
 
 .grid-2 {
     display: grid;
@@ -63,34 +82,90 @@ section {
     align-items: center;
 }
 
+.cards-container {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    justify-content: center;
+}
+
 .btn {
-    background-color: #2e7d32;
-    color: #ffffff;
+    background-color: var(--primary);
+    color: var(--light);
     border: none;
     padding: 12px 28px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    display: inline-block;
 }
 
-.btn:hover {
-    background-color: #1b5e20;
+.btn:hover:not(:disabled) {
+    background-color: var(--dark);
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.btn:active {
-    transform: translateY(0);
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+}
+
+ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card {
+    background: var(--light);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid var(--secondary);
+    min-width: 280px;
+    flex: 1;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.2);
+}
+
+.section-intro, .contact-intro {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    font-size: 1.05rem;
 }
 
 /* ==========================================================================
-   3. CABEÇALHO & MENU
+   3. CABEÇALHO E NAVEGAÇÃO
    ========================================================================== */
 header {
-    background-color: #1b4332;
-    color: #ffffff;
+    background-color: var(--dark);
+    color: var(--light);
     padding: 1.2rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -98,17 +173,18 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
 }
 
 .logo strong {
     font-size: 1.3rem;
     letter-spacing: 1px;
-    color: #52b788;
+    color: var(--secondary);
 }
 
 nav a {
-    color: #ffffff;
+    color: var(--light);
     margin-left: 20px;
     text-decoration: none;
     font-weight: 500;
@@ -120,7 +196,6 @@ nav a:hover {
     color: #74c69d;
 }
 
-/* Linha indicadora no hover do menu */
 nav a::after {
     content: '';
     position: absolute;
@@ -137,199 +212,245 @@ nav a:hover::after {
 }
 
 /* ==========================================================================
-   4. BANNER PRINCIPAL (HOME)
+   4. BANNER
    ========================================================================== */
 .banner {
-    background: linear-gradient(135deg, rgba(27, 67, 50, 0.95), rgba(45, 106, 79, 0.85)), 
-                url('https://unsplash.com') no-repeat center center/cover;
-    color: #ffffff;
+    background: linear-gradient(135deg, rgba(27, 94, 32, 0.85), rgba(46, 125, 50, 0.85)),
+                url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600') center/cover;
+    color: var(--light);
     padding: 120px 20px;
     text-align: center;
     max-width: 100%;
 }
 
 .banner h1 {
-    color: #ffffff;
+    color: var(--light);
     font-size: 2.8rem;
     max-width: 800px;
     margin: 0 auto 20px auto;
-    line-height: 1.2;
 }
 
 .banner p {
     color: #d8f3dc;
     font-size: 1.2rem;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto 40px auto;
 }
 
 /* ==========================================================================
-   5. SEÇÃO 1: ECONOMIA E SEÇÃO 3: DESAFIOS
+   5. GRÁFICO INTERATIVO
    ========================================================================== */
-ul {
-    list-style-type: none;
-}
-
-ul li {
-    position: relative;
-    padding-left: 30px;
+.chart-wrapper h3 {
+    color: var(--dark);
     margin-bottom: 15px;
+    text-align: center;
 }
 
-/* Marcador personalizado verde para as listas */
-ul li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #2e7d32;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-/* Simulação do Gráfico */
-#economia div[style*="background:#eee"] {
-    background: #eaedf0 !important;
-    border: 2px dashed #b7bfcc;
-    color: #718096;
-    font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-}
-
-/* ==========================================================================
-   6. SEÇÃO 2: CAMINHO DA SUSTENTABILIDADE (CARDS)
-   ========================================================================== */
-.cards-container {
-    display: flex;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-.card {
-    flex: 1;
-    min-width: 280px;
-    border: none;
-    padding: 30px;
+.chart-container {
+    background: var(--light);
+    padding: 25px;
     border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
-}
-
-.card h3 {
-    margin-bottom: 12px;
-    font-size: 1.3rem;
-    color: #1b4332;
+.chart-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 12px;
 }
 
 /* ==========================================================================
-   7. SEÇÃO 4: QUIZ INTERATIVO
+   6. QUIZ INTERATIVO
    ========================================================================== */
 .quiz-container {
-    background: #e8f5e9;
+    background: var(--light);
     padding: 40px;
     border-radius: 12px;
-    border-left: 6px solid #2e7d32;
+    border-left: 6px solid var(--primary);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-.quiz-container h2 {
-    color: #1b5e20;
-    margin-bottom: 15px;
-}
-
-.quiz-container h2::after {
-    background-color: #2e7d32;
-}
-
-#quiz-question {
-    font-size: 1.1rem;
+.quiz-container h3 {
+    font-size: 1.2rem;
     margin-bottom: 20px;
+    color: var(--dark);
+}
+
+#quiz-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 #quiz-form label {
-    display: inline-block;
-    background: #ffffff;
-    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    background: var(--accent);
+    padding: 14px 20px;
     border-radius: 8px;
-    width: 100%;
-    margin-bottom: 10px;
     cursor: pointer;
-    border: 1px solid #d4edda;
-    transition: background-color 0.2s, border-color 0.2s;
+    border: 2px solid #d4edda;
+    transition: all 0.25s ease;
+    font-weight: 500;
 }
 
 #quiz-form label:hover {
-    background-color: #f1f8e9;
+    background-color: #e8f5e9;
     border-color: #a5d6a7;
+    transform: translateX(4px);
 }
 
 #quiz-form input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #2e7d32; /* Cor interna do botão de rádio */
+    margin-right: 12px;
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+}
+
+#quiz-form label.correct {
+    background: #c8e6c9;
+    border-color: var(--success);
+    color: var(--dark);
+}
+
+#quiz-form label.wrong {
+    background: #ffcdd2;
+    border-color: var(--error);
+}
+
+#quiz-result {
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 20px;
+    transition: all 0.3s ease;
 }
 
 /* ==========================================================================
-   8. SEÇÃO 5: FORMULÁRIO DE CONTATO & BLOCO DE CITAÇÃO
+   7. FORMULÁRIO
    ========================================================================== */
-form input, form textarea {
+.form-container {
+    background: var(--light);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 12px;
-    margin: 10px 0 20px 0;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background-color: #ffffff;
+    border: 2px solid var(--border);
+    border-radius: 8px;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form input:focus, form textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     outline: none;
-    border-color: #2e7d32;
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
 }
 
-form textarea {
-    resize: vertical;
+.form-group textarea { resize: vertical; }
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+}
+
+.form-group input.valid,
+.form-group textarea.valid {
+    border-color: var(--success);
+}
+
+.error-msg {
+    display: block;
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    min-height: 1.1rem;
 }
 
 blockquote {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-style: italic;
-    color: #1b5e20;
+    color: var(--dark);
     line-height: 1.4;
-    border-left: 4px solid #52b788;
+    border-left: 4px solid var(--secondary);
     padding-left: 20px;
 }
 
-/* Ajuste fino na área lateral do formulário */
-#contato div[style*="background:#f4f4f4"] {
-    background: linear-gradient(135deg, #e8f5e9, #f4fbf7) !important;
-    border-radius: 12px !important;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.01);
+#form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: none;
+    text-align: center;
+    font-weight: 600;
+}
+
+#form-message.success {
+    background: #e8f5e9;
+    color: var(--success);
+    display: block;
+}
+
+#form-message.error {
+    background: #ffebee;
+    color: var(--error);
+    display: block;
 }
 
 /* ==========================================================================
-   9. RODAPÉ (FOOTER)
+   8. RODAPÉ
    ========================================================================== */
 footer {
     background-color: #111111;
     color: #a0aec0;
     text-align: center;
-    padding: 25px 20px;
+    padding: 30px 20px;
     margin-top: 60px;
     font-size: 0.9rem;
 }
 
 /* ==========================================================================
-   10. RESPONSIVIDADE (MEDIA QUERIES)
+   9. SCROLL REVEAL (aplicado via JS)
+   ========================================================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   10. RESPONSIVIDADE
    ========================================================================== */
 @media (max-width: 768px) {
     header {
@@ -337,26 +458,12 @@ footer {
         gap: 15px;
         text-align: center;
     }
-
-    nav a {
-        margin: 0 10px;
-        font-size: 0.95rem;
-    }
-
-    .banner {
-        padding: 80px 20px;
-    }
-
-    .banner h1 {
-        font-size: 2rem;
-    }
-
-    .grid-2 {
-        gap: 30px;
-    }
-    
-    blockquote {
-        font-size: 1.3rem;
-    }
+    nav a { margin: 0 10px; font-size: 0.9rem; }
+    .banner { padding: 80px 20px; }
+    .banner h1 { font-size: 2rem; }
+    .banner p { font-size: 1rem; }
+    section { padding: 40px 15px; }
+    h2 { font-size: 1.6rem; }
+    blockquote { font-size: 1.2rem; }
+    .quiz-container { padding: 25px; }
 }
-
